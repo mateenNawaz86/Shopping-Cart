@@ -4,6 +4,9 @@ import faker from "faker";
 
 const Cart = createContext();
 
+// it render 0ne type of data
+faker.seed(99);
+
 const Context = (props) => {
   // create random data with the help of faker npm package
   const product = [...Array(20)].map(() => ({
