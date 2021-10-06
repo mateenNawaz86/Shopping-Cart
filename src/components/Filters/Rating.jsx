@@ -1,22 +1,20 @@
 import React from "react";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { ImStarFull, ImStarEmpty } from "react-icons/im";
 
-const Rating = ({ rating, clickHandler, style }) => {
+const Rating = ({ rating, onClick, style }) => {
   return (
     <>
-      {[
-        ...Array(5).map((_, index) => {
-          return (
-            <span>
-              {rating > index ? (
-                <AiFillStar fontSize="15px" />
-              ) : (
-                <AiOutlineStar fontSize="15px" />
-              )}
-            </span>
-          );
-        }),
-      ]}
+      {[...Array(5)].map((_, index) => {
+        return (
+          <span key={index} onClick={() => onClick(index)} style={style}>
+            {rating > index ? (
+              <ImStarFull fontSize="15px" />
+            ) : (
+              <ImStarEmpty fontSize="15px" />
+            )}
+          </span>
+        );
+      })}
     </>
   );
 };

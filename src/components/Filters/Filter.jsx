@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Rating from "./Rating";
 
 const Filter = () => {
-  const [rate, setRate] = useState(5);
+  const [rate, setRate] = useState(2);
 
   const filterData = [
     {
@@ -29,7 +29,7 @@ const Filter = () => {
 
   return (
     <>
-      <div className="filters">
+      <div className="filters sticky-top">
         <span className="title">Filter Product</span>
         {filterData.map((filter) => {
           return (
@@ -50,9 +50,13 @@ const Filter = () => {
 
         <span>
           <label htmlFor="rating" style={{ paddingRight: 10 }}>
-            Rating: 
+            Rating:
           </label>
-          <Rating rating={rate} style={{ cursor: "pointer" }} />
+          <Rating
+            onClick={(index) => setRate(index + 1)}
+            rating={rate}
+            style={{ cursor: "pointer" }}
+          />
         </span>
         <button className="btn btn-danger">Clear Filters</button>
       </div>
