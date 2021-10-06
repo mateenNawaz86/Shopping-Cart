@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import { Badge, Nav, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FiShoppingCart } from "react-icons/fi";
+import { FiShoppingCart, FiTrash2 } from "react-icons/fi";
+import { CartState } from "../../context/Context";
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
 
   const menuHandler = () => setShowMenu(!showMenu);
 
+  const {
+    state: { cart },
+    dispatch,
+  } = CartState();
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
         <div className="container-fluid">
           <Link className="navbar-brand text-success" to="/">
             Save Mart
@@ -50,10 +55,46 @@ const Header = () => {
                 <Dropdown alignRight>
                   <Dropdown.Toggle variant="success">
                     <FiShoppingCart color="white" fontSize="22px" />
-                    <Badge>{8}</Badge>
+                    <Badge>{cart.length}</Badge>
                   </Dropdown.Toggle>
                   <Dropdown.Menu style={{ minWidth: 350 }}>
-                    <span style={{ padding: 10 }}>Cart is Empty</span>
+                    {cart.length > 0 ? (
+                      <>
+                        {cart.map((prod) => (
+                          <span className="cart-item" key={prod.id}>
+                            <img
+                              src={prod.image}
+                              alt={prod.name}
+                              className="cart-item__img"
+                            />
+                            <div className="cart-item__detail">
+                              <span> {prod.name}</span>
+                              <span> Rs: {prod.price.split(".")[0]}</span>
+                            </div>
+                            <FiTrash2
+                              fontSize="20px"
+                              className="deleteIcon"
+                              style={{ cursor: "pointer" }}
+                              onClick={() =>
+                                dispatch({
+                                  type: "REMOVE_FROM_CART",
+                                  payload: prod,
+                                })
+                              }
+                            />
+                          </span>
+                        ))}
+                      </>
+                    ) : (
+                      <span style={{ padding: 10 }}>Cart is Empty</span>
+                    )}
+                    <Link
+                      to="/cart"
+                      className="btn btn-primary"
+                      style={{ width: "95%", margin: "0 10px" }}
+                    >
+                      Go To Cart
+                    </Link>
                   </Dropdown.Menu>
                 </Dropdown>
               </Nav>
