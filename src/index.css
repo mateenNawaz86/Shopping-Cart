@@ -3,3 +3,37 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+.home {
+  display: flex;
+}
+
+.productContainer {
+  display: flex;
+  width: 78%;
+  padding: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.filters {
+  background-color: #35313a;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  margin: 10px;
+  height: 75vh;
+}
+
+.filters .title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  user-select: none;
+}
+
+.filters > span {
+  padding-bottom: 20px;
+}
